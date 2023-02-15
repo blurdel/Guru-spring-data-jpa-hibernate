@@ -1,15 +1,12 @@
 package com.blurdel.sdjpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.dao.TransientDataAccessResourceException;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.blurdel.sdjpa.dao.AuthorDao;
@@ -71,9 +68,8 @@ class AuthorDaoIntegrationTest {
 	
 	@Test
 	void testGetAuthorByName() {
-		Author author = null;
+		Author author = authorDao.getByName("Craig", "Walls");
 		
-		author = authorDao.getByName("Craig", "Walls");
 		assertThat(author).isNotNull();
 		
 //		assertThrows(EmptyResultDataAccessException.class, () -> {
