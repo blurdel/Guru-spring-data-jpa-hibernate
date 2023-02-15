@@ -66,6 +66,7 @@ class AuthorDaoIntegrationTest {
 		Author saved = authorDao.saveNew(author);
 		
 		assertThat(saved).isNotNull();
+		assertThat(saved.getId()).isNotNull(); // If no commit or transaction, id will be null here...
 	}
 	
 	@Test
