@@ -6,6 +6,7 @@ import com.blurdel.sdjpa.domain.Author;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.TypedQuery;
 
 @Component
 public class AuthorDaoImpl implements AuthorDao {
@@ -24,7 +25,13 @@ public class AuthorDaoImpl implements AuthorDao {
 
 	@Override
 	public Author getByName(String firstName, String lastName) {
-		return null;
+		TypedQuery<Author> query = getEntityManager().createQuery("select a from Author a " +
+				"where a.firstName = :first_name and a.lastName = :last_name", Author.class);
+		
+		query.setParameter("first_name", firstName);
+		query.setParameter("last_name", lastName);
+
+		return query.getSingleResult();
 	}
 
 	@Override

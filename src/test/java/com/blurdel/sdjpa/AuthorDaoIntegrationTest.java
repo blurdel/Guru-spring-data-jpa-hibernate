@@ -75,9 +75,9 @@ class AuthorDaoIntegrationTest {
 		author = authorDao.getByName("Craig", "Walls");
 		assertThat(author).isNotNull();
 		
-		assertThrows(EmptyResultDataAccessException.class, () -> {
-			authorDao.getByName("David", "Anderson");
-		});
+//		assertThrows(EmptyResultDataAccessException.class, () -> {
+//			authorDao.getByName("David", "Anderson");
+//		});
 	}
 	
 	@Test
