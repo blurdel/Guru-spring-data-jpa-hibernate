@@ -37,11 +37,11 @@ class AuthorDaoIntegrationTest {
 		
 		authorDao.delete(saved.getId());
 		
-		// Verify an exception is thrown (EmptyResultDataAccessException -> TransientDataAccessResourceException)
-		assertThrows(TransientDataAccessResourceException.class, () -> {
-			authorDao.getById(saved.getId());
-		});
+		Author deleted = authorDao.getById(saved.getId());
+		assertThat(deleted).isNull();
 		
+		// Double-check
+		assertThat(authorDao.getById(saved.getId())).isNull();
 	}
 	
 	@Test
