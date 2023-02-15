@@ -1,4 +1,4 @@
-package com.blurdel.sdjpajdbc;
+package com.blurdel.sdjpa;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

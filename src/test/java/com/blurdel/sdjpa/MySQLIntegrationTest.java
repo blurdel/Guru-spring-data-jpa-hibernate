@@ -1,4 +1,4 @@
-package com.blurdel.sdjpajdbc;
+package com.blurdel.sdjpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

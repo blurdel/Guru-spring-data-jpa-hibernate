@@ -10,9 +10,9 @@
 	</parent>
 	
 	<groupId>com.blurdel</groupId>
-	<artifactId>Guru-spring-data-jpa-jdbc</artifactId>
+	<artifactId>Guru-spring-data-jpa-hibernate</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Guru-spring-data-jpa-jdbc</name>
+	<name>Guru-spring-data-jpa-hibernate</name>
 	<description>Demo project for Spring Data JPA and Hibernate</description>
 	
 	<properties>
