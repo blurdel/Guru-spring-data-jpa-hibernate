@@ -50,9 +50,11 @@ class AuthorDaoIntegrationTest {
 		Author saved = authorDao.saveNew(author);
 		
 		saved.setLastName("Thompson");
-		Author updated = authorDao.update(saved);
+		authorDao.update(saved);
 		
-		assertThat(updated.getLastName()).isEqualTo("Thompson");
+		Author fetched = authorDao.getById(saved.getId());
+		
+		assertThat(fetched.getLastName()).isEqualTo("Thompson");
 	}
 	
 	@Test
