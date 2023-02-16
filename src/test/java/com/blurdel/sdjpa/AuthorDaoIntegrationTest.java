@@ -2,6 +2,8 @@ package com.blurdel.sdjpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -23,6 +25,22 @@ class AuthorDaoIntegrationTest {
 	@Autowired
 	AuthorDao authorDao;
 	
+	
+	@Test
+	void testFindAllAuthors() {
+		List<Author> authors = authorDao.findAll();
+		
+		assertThat(authors).isNotNull();
+		assertThat(authors.size()).isGreaterThan(0);		
+	}
+	
+	@Test
+	void testListAuthorsByLastNameLike() {
+		List<Author> authors = authorDao.listAuthorByLastNameLike("Wall");
+		
+		assertThat(authors).isNotNull();
+		assertThat(authors.size()).isGreaterThan(0);	
+	}
 	
 	@Test
 	void testDeleteAuthor() {

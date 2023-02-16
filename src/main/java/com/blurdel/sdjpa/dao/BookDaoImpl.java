@@ -4,6 +4,7 @@ import com.blurdel.sdjpa.domain.Book;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 public class BookDaoImpl implements BookDao {
@@ -13,6 +14,23 @@ public class BookDaoImpl implements BookDao {
 	
 	public BookDaoImpl(EntityManagerFactory emf) {
 		this.emf = emf;
+	}
+	
+	
+	@Override
+	public Book findByISBN(String isbn) {
+		EntityManager em = getEntityManager();
+		
+		try {
+			TypedQuery<Book> query = em.createQuery("select b from Book b where b.isbn = :isbn", Book.class);
+			query.setParameter("isbn", isbn);
+			
+			Book book = query.getSingleResult();
+			return book;
+		} 
+		finally {
+			em.close();
+		}
 	}
 
 	@Override

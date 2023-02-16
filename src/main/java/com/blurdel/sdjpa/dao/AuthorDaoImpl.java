@@ -1,11 +1,14 @@
 package com.blurdel.sdjpa.dao;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.blurdel.sdjpa.domain.Author;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 @Component
@@ -16,6 +19,36 @@ public class AuthorDaoImpl implements AuthorDao {
 		
 	public AuthorDaoImpl(EntityManagerFactory emf) {
 		this.emf = emf;
+	}
+	
+	
+	@Override
+	public List<Author> findAll() {
+		EntityManager em = getEntityManager();
+		
+		try {
+			TypedQuery<Author> query = em.createNamedQuery("author_find_all", Author.class);
+			return query.getResultList();
+		} 
+		finally {
+			em.close();
+		}
+	}
+	
+	@Override
+	public List<Author> listAuthorByLastNameLike(String lastName) {
+		EntityManager em = getEntityManager();
+		
+		try {
+			Query query = em.createQuery("select a from Author a where a.lastName like :last_name");
+			query.setParameter("last_name", lastName + "%");
+			List<Author> list = query.getResultList();
+			
+			return list;
+		} 
+		finally {
+			em.close();
+		}
 	}
 
 	@Override

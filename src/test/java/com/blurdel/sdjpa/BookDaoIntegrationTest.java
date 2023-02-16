@@ -2,6 +2,7 @@ package com.blurdel.sdjpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.assertj.core.internal.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -23,6 +24,18 @@ public class BookDaoIntegrationTest {
 	@Autowired
 	BookDao bookDao;
 	
+	
+	@Test
+	void testFindBookByISBN() {
+		Book book = new Book();
+		book.setIsbn("1234" + RandomString.make());
+		book.setTitle("ISBN TEST");
+		
+		bookDao.saveNew(book);
+		
+		Book fetched = bookDao.findByISBN(book.getIsbn());
+		assertThat(fetched).isNotNull();
+	}
 	
 	@Test
     void testDeleteBook() {

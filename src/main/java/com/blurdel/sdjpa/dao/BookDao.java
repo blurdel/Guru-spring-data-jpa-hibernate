@@ -4,6 +4,8 @@ import com.blurdel.sdjpa.domain.Book;
 
 public interface BookDao {
 
+	Book findByISBN(String isbn);
+	
 	Book getById(Long id);
 	
 	Book getByTitle(String title);
