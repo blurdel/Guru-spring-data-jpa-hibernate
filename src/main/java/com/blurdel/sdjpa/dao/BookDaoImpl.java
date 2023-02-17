@@ -1,10 +1,11 @@
 package com.blurdel.sdjpa.dao;
 
+import java.util.List;
+
 import com.blurdel.sdjpa.domain.Book;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 public class BookDaoImpl implements BookDao {
@@ -16,6 +17,19 @@ public class BookDaoImpl implements BookDao {
 		this.emf = emf;
 	}
 	
+	
+	@Override
+	public List<Book> findAll() {
+		EntityManager em = getEntityManager();
+		
+		try {
+			TypedQuery<Book> query = em.createNamedQuery("book_find_all", Book.class);
+			return query.getResultList();
+		}
+		finally {
+			em.close();
+		}
+	}
 	
 	@Override
 	public Book findByISBN(String isbn) {
@@ -45,8 +59,10 @@ public class BookDaoImpl implements BookDao {
 	public Book getByTitle(String title) {
 		EntityManager em = getEntityManager();
 		
-		TypedQuery<Book> query = em.createQuery("select a from Book a " +
-				"where a.title = :title", Book.class);
+//		TypedQuery<Book> query = em.createQuery("select a from Book a " +
+//				"where a.title = :title", Book.class);
+		
+		TypedQuery<Book> query = em.createNamedQuery("find_by_title", Book.class);	
 		
 		query.setParameter("title", title);
 		

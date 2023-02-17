@@ -1,11 +1,18 @@
 package com.blurdel.sdjpa.domain;
 
+import java.util.Objects;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.util.Objects;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 
+@NamedQueries({
+	@NamedQuery(name = "book_find_all", query = "from Book"),
+	@NamedQuery(name = "find_by_title", query = "from Book a where a.title = :title")
+})
 @Entity
 public class Book {
 
