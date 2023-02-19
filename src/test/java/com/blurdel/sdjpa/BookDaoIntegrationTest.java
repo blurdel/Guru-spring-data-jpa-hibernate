@@ -48,6 +48,12 @@ public class BookDaoIntegrationTest {
 	}
 	
 	@Test
+	void testFindBookByTitleNative() {
+		Book fetched = bookDao.getByTitleNative("Clean Code");
+		assertThat(fetched).isNotNull();
+	}
+	
+	@Test
 	void testFindBookByISBN() {
 		Book book = new Book();
 		book.setIsbn("1234" + RandomString.make());

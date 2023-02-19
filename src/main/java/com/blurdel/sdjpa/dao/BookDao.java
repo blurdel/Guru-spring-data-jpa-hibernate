@@ -14,6 +14,8 @@ public interface BookDao {
 	
 	Book getByTitle(String title);
 	
+	Book getByTitleNative(String title);
+	
 	Book saveNew(Book book);
 	
 	Book update(Book book);

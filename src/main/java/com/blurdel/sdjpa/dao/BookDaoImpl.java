@@ -6,6 +6,7 @@ import com.blurdel.sdjpa.domain.Book;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 public class BookDaoImpl implements BookDao {
@@ -69,6 +70,23 @@ public class BookDaoImpl implements BookDao {
 		Book book =  query.getSingleResult();
 		em.close();
 		return book;
+	}
+	
+	@Override
+	public Book getByTitleNative(String title) {
+		EntityManager em = getEntityManager();
+		
+		try {
+			// Note: Native query table names must match database
+			Query query = em.createNativeQuery("select * from book where title = :title", Book.class);
+			
+			query.setParameter("title", title);
+			
+			return (Book) query.getSingleResult();
+		} 
+		finally {
+			em.close();
+		}
 	}
 
 	@Override

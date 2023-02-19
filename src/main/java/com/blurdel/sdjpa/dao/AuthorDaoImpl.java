@@ -86,6 +86,7 @@ public class AuthorDaoImpl implements AuthorDao {
 		EntityManager em = getEntityManager();
 		
 		try {
+			// Note: Native query table names must match database
 			Query query = em.createNativeQuery("select * from author a where a.first_name = ? and a.last_name = ?", Author.class);
 			
 			query.setParameter(1, firstName);
