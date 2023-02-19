@@ -27,6 +27,18 @@ class AuthorDaoIntegrationTest {
 	
 	
 	@Test
+	void testFindAuthorByNamedNative() {
+		Author author = authorDao.getByNameNative("Craig", "Walls");
+		assertThat(author).isNotNull();
+	}
+	
+//	@Test
+//	void testFindAuthorByNamedCriteria() {
+//		Author author = authorDao.getByNamedCriteria("Craig", "Walls");
+//		assertThat(author).isNotNull();
+//	}
+	
+	@Test
 	void testFindAllAuthors() {
 		List<Author> authors = authorDao.findAll();
 		

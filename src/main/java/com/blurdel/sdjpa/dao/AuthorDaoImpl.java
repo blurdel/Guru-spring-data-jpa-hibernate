@@ -10,6 +10,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.ParameterExpression;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 
 @Component
 public class AuthorDaoImpl implements AuthorDao {
@@ -75,6 +80,52 @@ public class AuthorDaoImpl implements AuthorDao {
 		em.close();
 		return author;
 	}
+	
+	@Override
+	public Author getByNameNative(String firstName, String lastName) {
+		EntityManager em = getEntityManager();
+		
+		try {
+			Query query = em.createNativeQuery("select * from author a where a.first_name = ? and a.last_name = ?", Author.class);
+			
+			query.setParameter(1, firstName);
+			query.setParameter(2, lastName);
+			
+			return (Author) query.getSingleResult();
+		} 
+		finally {
+			em.close();
+		}
+	}
+	
+//	@Override
+//	public Author getByNamedCriteria(String firstName, String lastName) {
+//		EntityManager em = getEntityManager();
+//		
+//		try {
+//			
+//			CriteriaBuilder cb = em.getCriteriaBuilder();
+//			CriteriaQuery<Author> query = cb.createQuery(Author.class);
+//			
+//			Root<Author> root = query.from(Author.class);
+//			ParameterExpression<String> peFirstName = cb.parameter(String.class);
+//			ParameterExpression<String> peLastName = cb.parameter(String.class);
+//			
+//			Predicate predFirst = cb.equal(root.get("firstName"), peFirstName);
+//			Predicate predLast = cb.equal(root.get("lastName"), peLastName);
+//			
+//			query.select(root).where(cb.and(predFirst, predLast));
+//			
+//			TypedQuery<Author> typedQuery = em.createQuery(query);
+//			typedQuery.setParameter(peFirstName, firstName);
+//			typedQuery.setParameter(peLastName, lastName);
+//			
+//			return typedQuery.getSingleResult();
+//		} 
+//		finally {
+//			em.close();
+//		}		
+//	}
 
 	@Override
 	public Author saveNew(Author author) {
